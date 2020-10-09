@@ -147,6 +147,51 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: Добавьте сюда любой код прорисовки, использующий HDC...
+
+            HDC memDC = CreateCompatibleDC(hdc);
+
+            RECT lpRect;
+            GetClientRect(hWnd, &lpRect);
+            HBITMAP hBM = CreateCompatibleBitmap(hdc, lpRect.right, lpRect.bottom);
+            HANDLE hOld = SelectObject(memDC, hBM);
+            RECT r;
+            SetRect(&r, 0, 0, lpRect.right, lpRect.bottom);
+            FillRect(memDC, &r, (HBRUSH)GetStockObject(WHITE_BRUSH));
+
+            Rectangle(memDC, 20, 20, 20 + 400, 20 + 300);
+
+            Ellipse(memDC, 20, 20, 20 + 400, 20 + 300);
+
+            MoveToEx(memDC, 20, 20, NULL);
+            LineTo(memDC, 20 + 400, 20 + 300);
+
+            MoveToEx(memDC, 20 + 400 - 1, 20, NULL);
+            LineTo(memDC, 20, 20 + 300 - 1);
+
+            POINT polyP[] = { 20, 20 + 300 / 2,
+                              20 + 400 / 3, 20,
+                              20 + 400 / 3 * 2, 20,
+                              20 + 400 - 1, 20 + 300 / 2,
+                              20 + 400 / 3 * 2, 20 + 300 - 1,
+                              20 + 400 / 3, 20 + 300 - 1
+            };
+            Polygon(memDC, polyP, 6);
+
+            MoveToEx(memDC, 20, 20 + 300 - 1, NULL);
+            LineTo(memDC, 20 + 400 / 2, 20);
+            LineTo(memDC, 20 + 400, 20 + 300);
+            
+            HFONT hFont = CreateFont(24, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+                CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Impact"));
+            SelectObject(memDC, hFont);
+            SetTextColor(memDC, RGB(0, 64, 0));
+            TextOut(memDC, 20 + 400 / 4, 20 + 300 / 3 * 2, L"sorry 4 this bruh moment", wcslen(L"sorry 4 this bruh moment"));
+
+            BitBlt(hdc, 0, 0, lpRect.right, lpRect.bottom, memDC, 0, 0, SRCCOPY);
+            SelectObject(memDC, hOld);
+            DeleteObject(hBM);
+            DeleteDC(memDC);
+
             EndPaint(hWnd, &ps);
         }
         break;
