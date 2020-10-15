@@ -121,8 +121,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 VOID InitMenu(HWND hWnd)
 {
     HMENU menuv = GetMenu(hWnd);
-    HMENU menu = CreatePopupMenu();
-    
+
+    HMENU menu = CreatePopupMenu();  
     AppendMenuW(menu, MF_STRING, MENU_PEN, L"&Pen");
     AppendMenuW(menu, MF_STRING, MENU_LINE, L"&Line");
     AppendMenuW(menu, MF_STRING, MENU_POLYLINE, L"&Polyline");
@@ -132,6 +132,7 @@ VOID InitMenu(HWND hWnd)
     AppendMenuW(menu, MF_STRING, MENU_ELLIPSE, L"&Ellipse");
 
     AppendMenuW(menuv, MF_POPUP, (UINT_PTR)menu, L"&Figure");
+    AppendMenuW(menuv, MF_STRING, MENU_BACK, L"&Back");
     SetMenu(hWnd, menuv);
 }
 
@@ -160,6 +161,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
+                break;
+            case MENU_BACK:
+                if (!FigureVector.empty()) FigureVector.pop_back();
                 break;
             case MENU_PEN:
                 CurrentFigureType = ftPen;

@@ -23,6 +23,8 @@
 #define MENU_TEXT 3232
 #define MENU_ELLIPSE 3233
 
+#define MENU_BACK 3234
+
 VOID InitMenu(HWND hWnd);
 
 void InputText(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
