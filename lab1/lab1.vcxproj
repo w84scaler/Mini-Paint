@@ -139,10 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EllipseFigure.h" />
+    <ClInclude Include="Figure.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="LineFigure.h" />
+    <ClInclude Include="PenFigure.h" />
+    <ClInclude Include="PolygoneFigure.h" />
+    <ClInclude Include="PolylineFigure.h" />
+    <ClInclude Include="RectangleFigure.h" />
     <ClInclude Include="lab1.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TextFigure.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lab1.cpp" />
