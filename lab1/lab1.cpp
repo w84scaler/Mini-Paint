@@ -238,34 +238,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             SetRect(&r, 0, 0, lpRect.right, lpRect.bottom);
             FillRect(memDC, &r, (HBRUSH)GetStockObject(WHITE_BRUSH));
 
-            Rectangle(memDC, 20, 20, 20 + 400, 20 + 300);
-
-            Ellipse(memDC, 20, 20, 20 + 400, 20 + 300);
-
-            MoveToEx(memDC, 20, 20, NULL);
-            LineTo(memDC, 20 + 400, 20 + 300);
-
-            MoveToEx(memDC, 20 + 400 - 1, 20, NULL);
-            LineTo(memDC, 20, 20 + 300 - 1);
-
-            POINT polyP[] = { 20, 20 + 300 / 2,
-                              20 + 400 / 3, 20,
-                              20 + 400 / 3 * 2, 20,
-                              20 + 400 - 1, 20 + 300 / 2,
-                              20 + 400 / 3 * 2, 20 + 300 - 1,
-                              20 + 400 / 3, 20 + 300 - 1
-            };
-            Polygon(memDC, polyP, 6);
-
-            MoveToEx(memDC, 20, 20 + 300 - 1, NULL);
-            LineTo(memDC, 20 + 400 / 2, 20);
-            LineTo(memDC, 20 + 400, 20 + 300);
-            
             HFONT hFont = CreateFont(24, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
                 CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Impact"));
             SelectObject(memDC, hFont);
-            SetTextColor(memDC, RGB(0, 64, 0));
-            TextOut(memDC, 20 + 400 / 4, 20 + 300 / 3 * 2, L"sorry 4 this bruh moment", wcslen(L"sorry 4 this bruh moment"));
+            SetTextColor(memDC, RGB(0, 0, 0));
+            TextOut(memDC, 10, 10, L"sorry 4 this bruh moment", wcslen(L"sorry 4 this bruh moment"));
 
             for (int i = 0; i < FigureVector.size(); i++) {
                 onPaint(memDC, FigureVector[i]);

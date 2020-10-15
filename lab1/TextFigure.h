@@ -14,12 +14,6 @@ public:
 	std::wstring text = L"";
 
 	void Paint(HDC hdc) override {
-		HFONT hFont = CreateFont(24, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, VARIABLE_PITCH, TEXT("Gill Sans MT"));
-		SelectObject(hdc, hFont);
-
-		SetTextColor(hdc, RGB(0, 64, 0));
-
 		time_t tm = time(NULL);
 		if ((tm % 2) == 0 && isTyping) {
 			text.push_back('|');

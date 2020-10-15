@@ -11,8 +11,8 @@ public:
 
 	void Paint(HDC hdc) override {
 
-		int height = abs(coords.top - coords.bottom);
-		int width = abs(coords.right - coords.left);
+		int height = coords.bottom - coords.top;
+		int width = coords.right - coords.left;
 
 		MoveToEx(hdc, coords.left, coords.top + height / 3, NULL);
 		LineTo(hdc, coords.left, coords.top + 2 * height / 3);
