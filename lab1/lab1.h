@@ -24,6 +24,7 @@
 #define MENU_ELLIPSE 3233
 
 #define MENU_BACK 3234
+#define MENU_NEXT 3235
 
 VOID InitMenu(HWND hWnd);
 

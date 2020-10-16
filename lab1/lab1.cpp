@@ -12,6 +12,7 @@ WCHAR szTitle[MAX_LOADSTRING];                  // Текст строки за�
 WCHAR szWindowClass[MAX_LOADSTRING];            // имя класса главного окна
 
 std::vector<Figure*> FigureVector;
+std::vector<Figure*> NextFigureVector;
 Figure* CurrentFigure;
 FigureType CurrentFigureType;
 BOOL StartedDrawing;
@@ -111,6 +112,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    }
 
    InitMenu(hWnd);
+   SetTimer(hWnd, 1, 16, NULL);
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
@@ -133,6 +135,7 @@ VOID InitMenu(HWND hWnd)
 
     AppendMenuW(menuv, MF_POPUP, (UINT_PTR)menu, L"&Figure");
     AppendMenuW(menuv, MF_STRING, MENU_BACK, L"&Back");
+    AppendMenuW(menuv, MF_STRING, MENU_NEXT, L"&Next");
     SetMenu(hWnd, menuv);
 }
 
@@ -163,7 +166,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 DestroyWindow(hWnd);
                 break;
             case MENU_BACK:
-                if (!FigureVector.empty()) FigureVector.pop_back();
+                if (!FigureVector.empty() && !StartedDrawing) {
+                    NextFigureVector.push_back(FigureVector.back());
+                    FigureVector.pop_back();
+                }
+                break;
+            case MENU_NEXT:
+                if (!NextFigureVector.empty() && !StartedDrawing) {
+                    FigureVector.push_back(NextFigureVector.back());
+                    NextFigureVector.pop_back();
+                }
                 break;
             case MENU_PEN:
                 CurrentFigureType = ftPen;
@@ -265,6 +277,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_DESTROY:
         PostQuitMessage(0);
+        break;
+    case WM_TIMER:
+        InvalidateRect(hWnd, NULL, true);
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
