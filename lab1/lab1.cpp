@@ -312,8 +312,8 @@ void onRClickDown(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     int yPos = GET_Y_LPARAM(lParam);
 
     switch (CurrentFigure->type) {
-    case ftPolyline: dynamic_cast<PolylineFigure*>(CurrentFigure)->RClickDown(xPos, yPos); break;
-    case ftText: { dynamic_cast<TextFigure*>(CurrentFigure)->FinishText(FigureVector); StartedDrawing = false; } break;
+    case ftPolyline: { dynamic_cast<PolylineFigure*>(CurrentFigure)->RClickDown(xPos, yPos); NextFigureVector.clear(); } break;
+    case ftText: { dynamic_cast<TextFigure*>(CurrentFigure)->FinishText(FigureVector); NextFigureVector.clear(); StartedDrawing = false; } break;
     }
 }
 
@@ -348,6 +348,7 @@ void onClickUp(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     if (CurrentFigureType != ftText && CurrentFigureType != ftNone) {
         CurrentFigure->ClickUp(xPos, yPos, FigureVector);
         StartedDrawing = false;
+        NextFigureVector.clear();
     }
 }
 
