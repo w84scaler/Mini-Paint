@@ -28,9 +28,9 @@ public:
 		if (isTyping) {
 			UINT c = MapVirtualKeyA(wParam, MAPVK_VK_TO_CHAR);
 			if (c != 0) {
-				if (c == '\b' && text.size() != 0)
+				if (c == '\b' && !text.empty())
 					text.pop_back();
-				else {
+				else if (c != '\b') {
 					if (GetKeyState(VK_SHIFT) & 0x8000)
 						text.push_back(c);
 					else
